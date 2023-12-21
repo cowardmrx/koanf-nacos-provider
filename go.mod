@@ -1,4 +1,4 @@
-module github.com/cowardmrx/knadh-nacos-provider
+module github.com/cowardmrx/koanf-nacos-provider
 
 go 1.21
 
