@@ -5,7 +5,7 @@ knadh的Nacos服务提供者。
 
 ## install
 ```go
-go get github.com/cowardmrx/knadh-nacos-provider
+go get github.com/cowardmrx/koanf-nacos-provider
 ```
 ## usage
 ```go
