@@ -1,7 +1,7 @@
-# knadh-nacos-provider
+# koanf-nacos-provider
 
 ## introduction
-knadh的Nacos服务提供者。
+koanf的Nacos服务提供者。
 
 ## install
 ```go
