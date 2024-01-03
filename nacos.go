@@ -49,11 +49,11 @@ func validateConfig(config *Config) error {
 // @description: create nacos provider
 // @param config
 // @return *Nacos
-func Provider(config Config) *Nacos {
+func Provider(config Config) (*Nacos, error) {
 
 	// validate config
 	if err := validateConfig(&config); err != nil {
-		return nil
+		return nil, err
 	}
 
 	// create nacos config client
@@ -78,10 +78,10 @@ func Provider(config Config) *Nacos {
 
 	// create client failed
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return &Nacos{nclient, config}
+	return &Nacos{nclient, config}, nil
 }
 
 // Read

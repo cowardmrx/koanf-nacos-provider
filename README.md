@@ -28,13 +28,18 @@ type YourConfig struct {
 }
 
 func main() {
-	np := Provider(Config{
+	np,err := Provider(Config{
 		Host:        "ip or domain",
 		Port:        8848,
 		NamespaceId: "",
 		Group:       "",
 		ConfigName:  "",
 	})
+	
+	if err != nil {
+		fmt.Println("get provider failed: ",err.Error())
+		return
+    }
 
 	if err := k.Load(np, yaml.Parser()); err != nil {
 		// error

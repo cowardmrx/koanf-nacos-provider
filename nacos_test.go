@@ -9,7 +9,7 @@ import (
 )
 
 func ExampleProvider() {
-	_ = Provider(Config{
+	_, _ = Provider(Config{
 		Host:        "",
 		Port:        8848,
 		NamespaceId: "",
@@ -21,7 +21,7 @@ func ExampleProvider() {
 }
 
 func ExampleNacos_Read() {
-	np := Provider(Config{
+	np, err := Provider(Config{
 		Host:        "ip or domain",
 		Port:        8848,
 		NamespaceId: "",
@@ -29,9 +29,14 @@ func ExampleNacos_Read() {
 		ConfigName:  "",
 	})
 
+	if err != nil {
+		fmt.Println("error: ", err.Error())
+		return
+	}
+
 	result, err := np.Read()
 	if err != nil {
-		panic(err)
+		fmt.Println("get config failed: ", err.Error())
 	}
 
 	fmt.Println(result)
@@ -40,7 +45,7 @@ func ExampleNacos_Read() {
 
 func ExampleNacos_ReadBytes() {
 
-	np := Provider(Config{
+	np, _ := Provider(Config{
 		Host:        "ip or domain",
 		Port:        8848,
 		NamespaceId: "",
@@ -69,7 +74,7 @@ func ExampleNacos_ReadBytes() {
 func ExampleNacos_Watch() {
 	k := koanf.New(".")
 
-	np := Provider(Config{
+	np, _ := Provider(Config{
 		Host:        "ip or domain",
 		Port:        8848,
 		NamespaceId: "",
@@ -121,7 +126,7 @@ func TestNacos_Read(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			n := Provider(tt.fields.config)
+			n, _ := Provider(tt.fields.config)
 
 			gotResult, err := n.Read()
 			if (err != nil) != tt.wantErr {
@@ -159,7 +164,7 @@ func TestNacos_ReadBytes(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			n := Provider(tt.fields.config)
+			n, _ := Provider(tt.fields.config)
 
 			gotResult, err := n.ReadBytes()
 			if (err != nil) != tt.wantErr {
@@ -199,7 +204,7 @@ func TestNacos_Watch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			n := Provider(tt.fields.config)
+			n, _ := Provider(tt.fields.config)
 
 			if err := n.Watch(tt.args.cb); (err != nil) != tt.wantErr {
 				t.Errorf("Watch() error = %v, wantErr %v", err, tt.wantErr)
